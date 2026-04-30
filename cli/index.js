@@ -227,11 +227,11 @@ For more information, visit: https://easy.js
 
   runEasyJS(filePath) {
     const indexPath = path.resolve(__dirname, '../index.js');
-    exec(`node ${indexPath} ${filePath}`, (error) => {
-      if (error) {
-        Logger.error(error.message);
-        process.exit(1);
-      }
+    const { spawn } = require('child_process');
+    const child = spawn('node', [indexPath, filePath], { stdio: 'inherit' });
+    child.on('error', (error) => {
+      Logger.error(error.message);
+      process.exit(1);
     });
   }
 
