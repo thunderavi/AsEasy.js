@@ -1,0 +1,8 @@
+examples/
+test/
+*.md
+!README.md
+!NPM_PUBLISH.md
+.env
+.env.example
+*.log
