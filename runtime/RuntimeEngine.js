@@ -269,7 +269,8 @@ class RuntimeEngine {
     const { port, host } = this.config.server;
 
     this.app.listen(port, host, () => {
-      Logger.success(`\n✓ Server started on http://${host}:${port}`);
+      const displayHost = host === '0.0.0.0' ? 'localhost' : host;
+      Logger.success(`\n✓ Server started on http://${displayHost}:${port}`);
       Logger.info(`\nAvailable routes:`);
       
       if (this.config.routes.length > 0) {
