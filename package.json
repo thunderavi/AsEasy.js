@@ -1,6 +1,6 @@
 {
   "name": "aseasy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A production-ready backend framework with a simple DSL for building secure, scalable Node.js applications",
   "main": "index.js",
   "bin": {
@@ -28,7 +28,7 @@
     "mongoose": "^7.5.0",
     "mysql2": "^3.6.0",
     "redis": "^4.6.0",
-    "jsonwebtoken": "^9.1.0",
+    "jsonwebtoken": "^9.0.3",
     "bcryptjs": "^2.4.3",
     "express-rate-limit": "^7.0.0",
     "helmet": "^7.0.0",
