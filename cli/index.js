@@ -120,7 +120,7 @@ DEBUG=false
         dev: 'easyjs dev src/app.easy'
       },
       dependencies: {
-        'easy.js': '^1.0.0'
+        'aseasy': '^1.0.1'
       }
     };
 
