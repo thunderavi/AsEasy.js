@@ -1,6 +1,6 @@
 {
   "name": "aseasy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A production-ready backend framework with a simple DSL for building secure, scalable Node.js applications",
   "main": "index.js",
   "bin": {
