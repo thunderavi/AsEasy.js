@@ -7,30 +7,25 @@ class Tokenizer {
   }
 
   tokenize(content) {
-    const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('//'));
     const tokens = [];
+    // Remove comments
+    const cleanContent = content.split('\n').map(line => {
+      const idx = line.indexOf('//');
+      return idx >= 0 ? line.substring(0, idx) : line;
+    }).join('\n');
 
-    for (const line of lines) {
-      const parts = this.tokenizeLine(line);
-      tokens.push(...parts);
-      tokens.push({ type: 'NEWLINE', value: '\n' });
-    }
-
-    return tokens;
-  }
-
-  tokenizeLine(line) {
-    const tokens = [];
-    const regex = /\{([^}]*)\}|"([^"]*)"|'([^']*)'|(\S+)/g;
+    const regex = /\{([^}]*)\}|"([^"]*)"|'([^']*)'|(\n)|(\S+)/g;
     let match;
 
-    while ((match = regex.exec(line)) !== null) {
-      const [, blockContent, dqString, sqString, word] = match;
+    while ((match = regex.exec(cleanContent)) !== null) {
+      const [, blockContent, dqString, sqString, newline, word] = match;
 
       if (blockContent !== undefined) {
-        tokens.push({ type: 'BLOCK', value: blockContent.trim() });
+        tokens.push({ type: 'BLOCK', value: blockContent });
       } else if (dqString !== undefined || sqString !== undefined) {
         tokens.push({ type: 'STRING', value: dqString || sqString });
+      } else if (newline) {
+        tokens.push({ type: 'NEWLINE', value: '\n' });
       } else if (word) {
         if (this.keywords.has(word)) {
           tokens.push({ type: word, value: word });
@@ -46,7 +41,19 @@ class Tokenizer {
       }
     }
 
-    return tokens;
+    // Filter out consecutive newlines
+    const finalTokens = [];
+    let lastWasNewline = true;
+    for (const t of tokens) {
+      if (t.type === 'NEWLINE') {
+         if (!lastWasNewline) finalTokens.push(t);
+         lastWasNewline = true;
+      } else {
+         finalTokens.push(t);
+         lastWasNewline = false;
+      }
+    }
+    return finalTokens;
   }
 }
 

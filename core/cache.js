@@ -58,6 +58,9 @@ class CacheEngine {
   }
 
   fallbackToMemory() {
+    if (this.client) {
+      this.client.disconnect().catch(() => {});
+    }
     this.client = null;
     console.warn('[CacheEngine] Falling back to in-memory caching');
   }
