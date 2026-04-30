@@ -62,7 +62,8 @@ class CLI {
     const dirs = [
       'src',
       'examples',
-      'config'
+      'config',
+      'public'
     ];
 
     for (const dir of dirs) {
@@ -99,6 +100,60 @@ PROTECT /users
       exampleContent
     );
 
+    // Create index.html template
+    const indexHtmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My easy.js App</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        h1 {
+            color: #4f46e5;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Welcome to easy.js</h1>
+        <p>Your production-ready backend is running!</p>
+        <p style="font-size: 0.9rem; margin-top: 2rem;">Edit this file in <code>public/index.html</code></p>
+    </div>
+</body>
+</html>`;
+
+    fs.writeFileSync(
+      path.join(projectPath, 'public', 'index.html'),
+      indexHtmlContent
+    );
+
     // Create .env file
     const envContent = `JWT_SECRET=your-secret-key-here
 JWT_EXPIRY=24h
@@ -120,7 +175,7 @@ DEBUG=false
         dev: 'easyjs dev src/app.easy'
       },
       dependencies: {
-        'aseasy': '^1.0.1'
+        'aseasy': '^1.0.6'
       }
     };
 

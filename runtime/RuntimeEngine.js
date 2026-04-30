@@ -147,6 +147,9 @@ class RuntimeEngine {
     this.app.use(express.json({ limit: '10mb' }));
     this.app.use(express.urlencoded({ extended: true, limit: '10mb' }));
     
+    // Serve static files (HTML/CSS) from a 'public' folder
+    this.app.use(express.static(process.cwd() + '/public'));
+    
     // Request logging
     this.app.use((req, res, next) => {
       Logger.info(`${req.method} ${req.path}`);
