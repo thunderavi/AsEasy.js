@@ -152,6 +152,20 @@ class RuntimeEngine {
       Logger.info(`${req.method} ${req.path}`);
       next();
     });
+
+    // Default Welcome Page
+    this.app.get('/', (req, res) => {
+      res.send(`
+        <html>
+          <body style="font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5;">
+            <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <h1 style="color: #4f46e5; margin-bottom: 0.5rem;">🚀 Welcome to easy.js</h1>
+              <p style="color: #6b7280;">Your production-ready backend is running!</p>
+            </div>
+          </body>
+        </html>
+      `);
+    });
   }
 
   setupMonitoringMiddleware() {
